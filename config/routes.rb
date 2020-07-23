@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root "pages#index"
+  # get "/", to: "pages#index"   與root 寫法效果一樣
+  get "/about" ,to: "pages#about"
 end
