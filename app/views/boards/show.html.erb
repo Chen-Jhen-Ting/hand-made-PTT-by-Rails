@@ -1,1 +1,23 @@
-<h1>看板展示<%= @board.title %></h1>
+<h1>看板  <%= @board.title %></h1>
+
+<%= link_to "新增文章",  new_board_post_path(@board)  %>
+                                        <%# board_id: @board.id   %>
+<% a = 1 %>
+<table>
+    <thead>
+        <tr>
+            <td>序號</td>
+            <td>文章名稱</td>
+        </tr>
+    </thead>
+    <tbody>
+        <% @board.posts.each do |post| %>
+            <tr>
+                <td><%= a %></td>
+                <td><%= link_to post.title, post_path(post) %></td>
+                <td><%= post.id %></td>
+                <% a +=1 %>
+            </tr>
+        <% end %>
+    </tbody>
+</table>

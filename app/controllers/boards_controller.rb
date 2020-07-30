@@ -1,13 +1,13 @@
 class BoardsController < ApplicationController
     # rescue_from ActiveRecord::RecordNotFound, with: :not_found
-    acts_as_paranoid
+    # acts_as_paranoid
     
     before_action :find_board, only: [:show, :edit, :update, :destroy]
                                 # 有 only 也有 except
 
     def index 
         @boards = Board.all
-        
+
         # @boards = Board.available 這行是希望查詢時會去使用scope的功能
 
         #原本是去找全部資料，現在是去找 deteled_at 沒有紀錄的欄位

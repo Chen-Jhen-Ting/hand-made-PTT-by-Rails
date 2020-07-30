@@ -1,12 +1,13 @@
 class Board < ApplicationRecord
 
-    acts_as_oaranoid
+    acts_as_paranoid
 
 
     has_many :posts
     # has_many :posts 這便是增加方法，不是建立關聯，這些關聯都是虛假的，只有方法才是真的
-    # 會長出  posts  posts 這些方法
+    # 會長出  posts  posts= 這些方法
     # has_many :posts, foreign_key 'board_id'  FK 預設是這樣，可以自己更改
+    # foreign_key 'b_id' 可以自己設定，但是要能對應的到
 
 
     validates :title, presence: true, length: {minimum: 2}
