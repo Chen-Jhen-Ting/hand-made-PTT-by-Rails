@@ -6,6 +6,9 @@ class Board < ApplicationRecord
     scope :available, -> { where(deleted_at: nil) }
 
 
+    # default_scope :available, -> { where(deleted_at: nil) }
+    # default_scope 是讓每次查詢加上這個條件，確定每次都要加這個條件再使用
+
     def destroy
         update(deleted_at: Time.now)
     end

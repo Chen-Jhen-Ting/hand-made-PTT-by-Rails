@@ -3,9 +3,9 @@ class BoardsController < ApplicationController
 
     before_action :find_board, only: [:show, :edit, :update, :destroy]
                                 # 有 only 也有 except
-    
+    acts_as_paranoid
      #  scope
-    scope :available, -> {where(deleted_at: nil)}
+    
 
 
     def index 
