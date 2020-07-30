@@ -1,9 +1,20 @@
 class Board < ApplicationRecord
 
+    acts_as_oaranoid
+
+
+    has_many :posts
+    # has_many :posts 這便是增加方法，不是建立關聯，這些關聯都是虛假的，只有方法才是真的
+    # 會長出  posts  posts 這些方法
+    # has_many :posts, foreign_key 'board_id'  FK 預設是這樣，可以自己更改
+
+
     validates :title, presence: true, length: {minimum: 2}
     # 驗證寫在model 相對安全
 
-    scope :available, -> { where(deleted_at: nil) }
+
+
+    # scope :available, -> { where(deleted_at: nil) }
 
 
     # default_scope :available, -> { where(deleted_at: nil) }
