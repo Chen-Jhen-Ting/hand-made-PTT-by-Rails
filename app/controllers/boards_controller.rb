@@ -3,8 +3,13 @@ class BoardsController < ApplicationController
 
     before_action :find_board, only: [:show, :edit, :update, :destroy]
                                 # 有 only 也有 except
+    
+     #  scope
+    scope :available, -> {where(deleted_at: nil)}
+
+
     def index 
-        @boards = Board.where(deleted_at: nil)
+        @boards = Board.available
         #原本是去找全部資料，現在是去找 deteled_at 沒有紀錄的欄位
     end
 
@@ -74,4 +79,11 @@ class BoardsController < ApplicationController
         @board = Board.find(params[:id])
     end
     # 定義出來是為了讓我們不用重複打這行
+
+
+
+    # def self.available
+    #     where( deleted_at: nil )
+        # 查詢deleted_at 是nil 代表沒假刪除的項目
+    # end
 end
