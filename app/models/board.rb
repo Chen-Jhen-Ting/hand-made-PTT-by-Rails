@@ -9,6 +9,8 @@ class Board < ApplicationRecord
     # has_many :posts, foreign_key 'board_id'  FK 預設是這樣，可以自己更改
     # foreign_key 'b_id' 可以自己設定，但是要能對應的到
 
+    # has_many :posts, dependent: :destroy 這邊是設定，Board砍掉 底下的post也會砍掉
+    # 當 paranoid 打開的時候，會走向軟刪除，而非是上方的連動砍掉
 
     validates :title, presence: true, length: {minimum: 2}
     # 驗證寫在model 相對安全

@@ -23,10 +23,20 @@ class PostsController < ApplicationController
             render :new
         end
     end
+    
+    def find_post
+        @post = Post.find(params[:id])
+    end
+
     private
     def find_board
         @board = Board.find(params[:board_id])
     end
+    
+    def find_post
+        @post = Post.find(params[:id])
+    end
+
     def clean_params
         params.require(:post).permit(:title,:content)
     end
