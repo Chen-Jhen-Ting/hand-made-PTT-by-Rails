@@ -9,7 +9,7 @@ class Post < ApplicationRecord
 
   before_create :create_serial
 
-  # private
+  private
 
   def create_serial
     self.serial = serial_generator(10)

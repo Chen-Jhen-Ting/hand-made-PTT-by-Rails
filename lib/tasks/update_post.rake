@@ -3,6 +3,7 @@ namespace :db do
     task :update_post_serial => :environment do
         puts "Updating serial"
         Post.where(serial: nil).each do |post|
+            print "."
             post.update(serial: serial_generator(10))
             print "."
         end
