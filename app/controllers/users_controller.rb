@@ -26,7 +26,33 @@ class UsersController < ApplicationController
     end
 
     def sign_in
-        
+        @user = User.new()
+    end
+
+    def login
+        # if user_params[:account] && user_params[:password]
+        #     # 認證
+        #     user = User.login(user_params)
+        #     # 這邊User.login 是user model那邊定義好的。
+        #     if user
+        #         sign_in_user(user)
+        #         redirect_to root_path, notice: '成功登入'
+        #     else
+        #         redirect_to sign_in_users_path, notice:'請輸入正確帳號'
+        #     end
+        # else
+        #     redirect_to sign_in_users_path, notice:'請輸入正確帳號'
+        # end
+
+        user = User.login(user_params)
+        if user
+            sign_in_user(user)
+            redirect_to root_path, notice: '成功登入'
+        else
+            redirect_to sign_in_users_path, notice:'請輸入正確帳號'
+        end
+        # 簡化成這樣是因為 User.login  if options[:account] && options[:password]的這行就有檢查是否輸入帳號密碼
+        # 不需要向上方寫法檢查兩次
     end
 
     def sign_out
