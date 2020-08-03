@@ -1,6 +1,6 @@
 class Board < ApplicationRecord
 
-    # acts_as_paranoid
+    acts_as_paranoid
 
 
     has_many :posts
@@ -11,6 +11,10 @@ class Board < ApplicationRecord
 
     # has_many :posts, dependent: :destroy 這邊是設定，Board砍掉 底下的post也會砍掉
     # 當 paranoid 打開的時候，會走向軟刪除，而非是上方的連動砍掉
+
+
+    has_many :board_masters
+    has_many :users, through: :board_masters
 
     validates :title, presence: true, length: {minimum: 2}
     # 驗證寫在model 相對安全

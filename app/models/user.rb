@@ -2,8 +2,14 @@ class User < ApplicationRecord
     validates :account, presence: true, uniqueness: true
     validates :email, presence: true, uniqueness: true
 
-
+    acts_as_paranoid
     before_create :encrypt_password
+
+
+    has_many :board_masters
+    has_many :boards, through: :board_masters
+
+
     
     def self.login(options)
         if options[:account] && options[:password]

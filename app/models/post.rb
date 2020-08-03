@@ -3,7 +3,8 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: {minimum: 2}
   validates :serial, uniqueness: true
 
-
+  acts_as_paranoid
+  
   belongs_to :board
   # 這一段產生了 board  board= 方法給 Post 用
 

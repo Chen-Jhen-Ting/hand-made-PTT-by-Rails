@@ -43,4 +43,11 @@ class ApplicationController < ActionController::Base
         @current_user ||= User.find_by(id: session[:user_token])
     end
     # 官方給的方法
+
+
+    def authenticate_user!
+        redirect_to root_path, notice: '請登入' if not user_signed_in?
+    end
+    # 本來掛在board controller 有很多地方要用這個，所以把它掛在這裡
+    # require_user_sign_in 這邊我們改成 authenticate_user! 模仿 device套件
 end

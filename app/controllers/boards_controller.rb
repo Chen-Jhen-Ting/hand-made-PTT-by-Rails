@@ -7,6 +7,10 @@ class BoardsController < ApplicationController
     before_action :find_board, only: [:show, :edit, :update, :destroy]
                                 # 有 only 也有 except
 
+    before_action :authenticate_user!, except: [:index,:show]
+    # 我們希望 index and show不檢查是否登入 其他都要
+    # require_user_sign_in 這邊我們改成 authenticate_user! 模仿 device套件
+
     def index 
         @boards = Board.all
 
@@ -25,11 +29,13 @@ class BoardsController < ApplicationController
     end
 
     def new 
-        if user_signed_in?
-            @board = Board.new   
-        else
-            reditect_to root_path,notice: '請先登入會員'
-        end
+        # if user_signed_in?
+        #     @board = Board.new   
+        # else
+        #     reditect_to root_path,notice: '請先登入會員'
+        # end
+        # 這邊我們定義一個私有方法來處理它
+        @board = Board.new  
     end
 
     def create 
@@ -92,4 +98,10 @@ class BoardsController < ApplicationController
     #     where( deleted_at: nil )
         # 查詢deleted_at 是nil 代表沒假刪除的項目
     # end
+
+    # def require_user_sign_in
+    #     redirect_to root_path, notice: '請登入' if not user_signed_in?
+    # end
+    # 這個是用來檢查是否登入
+    # 我們需要在很多地方檢查是否登入，可以把它掛到上層類別
 end
