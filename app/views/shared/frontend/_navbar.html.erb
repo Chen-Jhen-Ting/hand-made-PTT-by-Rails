@@ -1,0 +1,13 @@
+<nav>
+    <ul>
+      <% if session[:user_token] %>
+        <li><%= @current_user.account %></li>
+        <%# User.find(session[:user_token]).account  這樣就是在view進行邏輯%>
+        <%# 現在的做法是把程式的工作交給controller %>
+        <li>登出</li>
+      <% else %>
+        <li>登入</li>
+        <li>註冊</li>
+      <% end %>
+    </ul>
+</nav>

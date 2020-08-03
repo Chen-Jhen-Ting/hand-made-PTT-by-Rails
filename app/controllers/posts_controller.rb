@@ -2,6 +2,9 @@ class PostsController < ApplicationController
     
     before_action :find_board, only: [:new,:create]
 
+    def show
+        find_post
+    end
     def new
         # @board = Board.find(params[:board_id])
         # 先確定這個看板存在
@@ -24,8 +27,9 @@ class PostsController < ApplicationController
         end
     end
     
-    def find_post
-        @post = Post.find(params[:id])
+    def destroy
+        find_post
+        @post.destroy
     end
 
     private

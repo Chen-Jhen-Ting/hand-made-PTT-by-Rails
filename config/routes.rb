@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :new, :create]
     # only: 我們要做出路徑
     # 其實不做這些限制也沒差，只是路徑長出來會醜了點
-    # 可以用 shado: true搞定這些事情
+    # 可以用 shallow: true搞定這些事情
   end
 
   resources :posts, except: [:index, :new, :create]
