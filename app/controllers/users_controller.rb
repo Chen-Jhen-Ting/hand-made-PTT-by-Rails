@@ -7,7 +7,11 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         if @user.save
             # 登入
-            session['user_token']= @user.id
+
+            # session[:user_token]= @user.id   
+            # 上面這一行變成下面這一行更有意義
+            sign_in_user(@user)
+            
             # session 就像是五十嵐店員手上的號碼單
             # cookie 就像是你手上的號碼單
             # 兩個都要對應才有效
@@ -21,11 +25,31 @@ class UsersController < ApplicationController
         end
     end
 
-    def sing_in
+    def sign_in
         
     end
+
+    def sign_out
+        # session[:user_token] = nil
+        # 上面這一行改成下面這一行，更有意義
+        sign_out_user()
+        redirect_to root_path,notice: '登出成功'
+    end
+    # 把session 刪掉，就可以登出了
+
     private
     def user_params
         params.require(:user).permit(:account, :password, :email)
     end
+
+    def sign_in_user(user)
+        session[:user_token]= user.id
+        # 把user.id 夾入session讓後續查詢可以抓到user.id
+    end
+
+    def sign_out_user
+        session[:user_token] = nil
+        # 這邊是撕掉session
+    end
+
 end

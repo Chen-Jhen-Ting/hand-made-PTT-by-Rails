@@ -1,4 +1,6 @@
 class BoardsController < ApplicationController
+    
+    
     # rescue_from ActiveRecord::RecordNotFound, with: :not_found
     # acts_as_paranoid
     
@@ -23,7 +25,11 @@ class BoardsController < ApplicationController
     end
 
     def new 
-        @board = Board.new   
+        if user_signed_in?
+            @board = Board.new   
+        else
+            reditect_to root_path,notice: '請先登入會員'
+        end
     end
 
     def create 
