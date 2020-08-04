@@ -19,7 +19,7 @@ class Board < ApplicationRecord
     validates :title, presence: true, length: {minimum: 2}
     # 驗證寫在model 相對安全
 
-
+# test
 
     # scope :available, -> { where(deleted_at: nil) }
 
