@@ -1,18 +1,3 @@
 <h1>新增看板</h1>
 
-<%= render 'form', board: @board%>
-
-
-<%# 這是原始的寫法 上方是rails的寫法%>
-<%# <form action="/boards" method="post"> %>
-
-    <%# <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token" > %> 
-
-    <%# <label for="title">看板名稱</label> %>
-    <%# <input type="text" name="title" id="title"> %>
-    
-    <%# <label for="intro">說明</label> %>
-    <%# <textarea name="intro" id="intro"></textarea> %>
-
-    <%# <input type="submit" value="送出"> %>
-<%# </form> %>
+<%= render 'form', board: @board %>

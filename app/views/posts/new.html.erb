@@ -1,27 +1,16 @@
-Post new view
-<% if @post.errors.any? %>
-    <ul>
-        <%= @post.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-        <% end %>
-    </ul>
-<% end %>
+<h1>新增文章</h1>
 
-
-
-                                <%#  這個route生成的 路徑方法有去抓 board_id ，要去翻手冊看他怎麼抓%>
 <%= form_with(model: @post, url: board_posts_path, local: true) do |form| %>
-    
-    <div class="fields">
-        <%= form.label :title, '文章標題'%>
-        <%= form.text_field :title %>
-    </div>
 
-    <div class="fields">
-        <%= form.label :content, '文章內容'%>
-        <%= form.text_field :content %>
-    </div>
+  <div class="fields">
+    <%= form.label :title, "標題" %>
+    <%= form.text_field :title %>
+  </div>
 
-    <%= form.submit '新增文章' %>
-    
+  <div class="fields">
+    <%= form.label :content, "內文" %>
+    <%= form.text_area :content %>
+  </div>
+
+  <%= form.submit %>
 <% end %>

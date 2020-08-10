@@ -1,17 +1,11 @@
-
 <nav>
-    <ul>
-      <% if user_signed_in? %>
-      <%# session 會去比對cookie, 這是一個view helper %>
-      <%# current_user 現在我們呼叫view helper的方法 %>
-      <%#  user_signed_in? 分兩階段去判斷是否有cookie%>
-        <li><%= current_user.account %></li>
-        <%# User.find(session[:user_token]).account  這樣就是在view進行邏輯%>
-        <%# 現在的做法是把程式的工作交給controller %>
-        <li><%= link_to '登出', sign_out_users_path, method: 'delete', data:{confirm:'Want to sing out ?'}%></li>
-      <% else %>
-        <li><%= link_to '登入',sign_in_users_path %></li>
-        <li><%= link_to '註冊', sign_up_users_path %></li>
-      <% end %>
-    </ul>
+  <ul>
+    <% if user_signed_in? %>
+      <li><%= current_user.account %></li>
+      <li><%= link_to "登出", sign_out_users_path, method: 'delete' %></li>
+    <% else %>
+      <li><%= link_to "登入", sign_in_users_path %></li>
+      <li><%= link_to "註冊", sign_up_users_path %></li>
+    <% end %>
+  </ul>
 </nav>
