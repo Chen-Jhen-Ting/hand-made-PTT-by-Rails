@@ -1,6 +1,22 @@
-post show
-<%= @post.title %>
-
 <ul>
-    <li><%= @post.content %></li>
+  <li>
+    <span>作者</span>
+    <span><%= @post.user.account %></span>
+  </li>
+  <li>
+    <span>看板</span>
+    <span><%= @post.board.title %></span>
+  </li>
+  <li>
+    <span>標題</span>
+    <span><%= @post.title %></span>
+  </li>
+  <li>
+    <span>時間</span>
+    <span><%= @post.created_at %></span>
+  </li>
 </ul>
+<p><%= @post.content %></p>
+<%= form_with(model: @comment, url: ) %>
+<% end %>
+<hr>

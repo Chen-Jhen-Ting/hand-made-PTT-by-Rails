@@ -6,7 +6,9 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%# 這個會去找assets/stylesheets/application檔案 走 assets pipeline%>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%# 這個會去找javascript的資料夾的 application檔案 走 webpack%>
   </head>
 
   <body>

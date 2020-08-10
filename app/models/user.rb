@@ -8,6 +8,12 @@ class User < ApplicationRecord
 
     has_many :board_masters
     has_many :boards, through: :board_masters
+    has_many :posts
+
+    has_many :favorite_boards
+    has_many :favorited_boards, through: :favorite_boards, source: :board
+    # source 後面是接要找的model名稱
+    # 這邊是 我要找favorited_board，他的model是 Board，透過 favorite_boards
 
 
     
@@ -23,6 +29,14 @@ class User < ApplicationRecord
     end
     # 這邊定義的是類別方法
 
+    def toggle_favorite_boards(b)
+        if favorited_boards.exists?(b.id) #這一行是檢查我的最愛裡面有沒有存在這個看板
+            favorited_boards.destroy(b)
+            # destroy 會砍掉所有符合的項目 用where查詢
+        else
+            favorited_boards << b
+        end
+    end
 
     private
     def encrypt_password

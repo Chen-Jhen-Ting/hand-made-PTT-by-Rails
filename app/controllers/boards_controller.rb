@@ -4,7 +4,7 @@ class BoardsController < ApplicationController
     # rescue_from ActiveRecord::RecordNotFound, with: :not_found
     # acts_as_paranoid
     
-    before_action :find_board, only: [:show, :edit, :update, :destroy]
+    before_action :find_board, only: [:show, :edit, :update, :destroy,:favorite]
                                 # 有 only 也有 except
 
     before_action :authenticate_user!, except: [:index,:show]
@@ -15,17 +15,31 @@ class BoardsController < ApplicationController
         @boards = Board.all
 
         # @boards = Board.available 這行是希望查詢時會去使用scope的功能
-
         #原本是去找全部資料，現在是去找 deteled_at 沒有紀錄的欄位
+        # @boards = Board.where(deleted_at: nil)
     end
 
     def show
         # @board = Board.find(params[:id]) 被上方得brfore_action 取代掉
+        
+        #萬一使用者亂查ＩＤ 會給他錯誤訊息
         # begin
             # @board = Board.find(params[:id])
         # rescue
             # render file: '/public/404.html', state: 404
         # end  可以這樣寫
+        # @posts = @board.posts
+        # 這樣是要查屬於這個看板的文章，左邊@posts 這樣就更意義明確
+
+
+        @posts = @board.posts.includes(:user)
+        # includes(:user) 是要讓他一次查詢post table中 撈出 board_id 一樣的資料
+        # includes 會把 這些文章 user_id 打包成一個 array 再去 user table 一次查詢
+    end
+
+    def favorite
+        current_user.toggle_favorite_boards(@board)
+        redirect_to favorites_path, notice: 'ok'
     end
 
     def new 

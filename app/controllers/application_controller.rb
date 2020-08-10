@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    include UsersHelper
+    # include UsersHelper
     # 這邊是把 view  helper module 的方法拉過來
 
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
     
     private
     def not_found
-        render file: '/public/404.html', state: 404
+        render file: '/public/404.html', state: 404, layout: false
+        # 跳轉到404畫面的時候不想給他layout 可以用這樣的寫法
     end
 
     # def find_user
@@ -44,10 +45,11 @@ class ApplicationController < ActionController::Base
     end
     # 官方給的方法
 
-
+    
     def authenticate_user!
         redirect_to root_path, notice: '請登入' if not user_signed_in?
     end
-    # 本來掛在board controller 有很多地方要用這個，所以把它掛在這裡
+    # 本來掛在board controller 但是有很多地方要用這個，所以把它掛在這裡
     # require_user_sign_in 這邊我們改成 authenticate_user! 模仿 device套件
 end
+

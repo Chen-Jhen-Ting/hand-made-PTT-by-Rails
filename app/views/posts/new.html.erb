@@ -2,9 +2,7 @@ Post new view
 <% if @post.errors.any? %>
     <ul>
         <%= @post.errors.full_messages.each do |message| %>
-            <tr>
-                <td><%= message %></td>
-            </tr>
+            <li><%= message %></li>
         <% end %>
     </ul>
 <% end %>
