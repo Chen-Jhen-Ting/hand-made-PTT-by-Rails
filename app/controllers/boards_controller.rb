@@ -12,7 +12,13 @@ class BoardsController < ApplicationController
   
     def favorite
       current_user.toggle_favorite_board(@board)
-      redirect_to favorites_path, notice: 'OK!'
+      respond_to do |format|
+        # respond_to 是個方法 yield出什麼東西會根據 html request js request不同給不同東西
+        format.html {redirect_to favorites_path, notice: 'OK!'}
+        format.json{ render json: {status: @board.favorited_by?(current_user)} }
+        # 這邊 .html .json 是對應傳來request是什麼格式
+        # 從我的最愛傳來的是html  從愛心傳來的是 json
+      end
     end
   
     def new

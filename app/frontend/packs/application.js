@@ -15,7 +15,11 @@ require("channels")
 // (e.g <%= image_pack_tag 'rails.png' %>)
 // app/javascript/images/rails.png 要這樣放檔案，自己建立image file
 
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
+const images = require.context('../images', true)
+const imagePath = (name) => images(name, true)
 
-console.log('hello')
+require('../script')
+// 這邊會把script/index.js  這是預設
+require('../stylesheets')
+
+import "controllers"
