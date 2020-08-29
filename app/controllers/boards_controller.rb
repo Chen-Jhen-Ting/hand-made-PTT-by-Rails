@@ -1,11 +1,16 @@
 class BoardsController < ApplicationController
-    before_action :find_board, only: [:favorite, :show, :edit, :update, :destroy]
+    before_action :find_board, only: [:favorite, :show, :edit, :update, :destroy, :hide]
     before_action :authenticate_user!, except: [:index, :show]
-  
     def index
-      @boards = Board.all
+      @boards = Board.normal.page(params[:page]).per(10)
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: {ids: @boards.map(&:id)} }
+        # @boards.map(&:id)
+        # @boards.map{ |b| b.id }
+      end
     end
-  
+    
     def show
       @posts = @board.posts.includes(:user)
     end
@@ -23,11 +28,15 @@ class BoardsController < ApplicationController
   
     def new
       @board = Board.new
+      authorize = @board, :new?
     end
   
     def create
       @board = Board.new(board_params)
-  
+      @board.users = current_user
+      
+      authorize = @board, :create?
+
       if @board.save
         redirect_to boards_path, notice: "新增成功"
       else
@@ -50,10 +59,15 @@ class BoardsController < ApplicationController
       @board.destroy
       redirect_to boards_path, notice: "刪除成功"
     end
+
+    def hide
+      @board.hide! if @board.may_hide?
+      redirect_to boards_path, notice: '看板已隱藏'
+    end
   
     private
     def find_board
-      @board = Board.find(params[:id])
+      @board = Board.normal.find(params[:id])
     end
   
     # Strong Parameters

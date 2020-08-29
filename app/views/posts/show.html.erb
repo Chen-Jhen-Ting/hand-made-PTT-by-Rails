@@ -21,8 +21,13 @@
 </ul>
 <hr>
 
-<p><%= @post.content %></p>
-<%= form_for(@comment, url: post_comments_path(@post), local: true) do |form| %>
+
+<%= @post.content %><br>
+<%= @post.hi %><br>
+<%= image_tag @post.photo.variant(resize_to_limit: [400, 400]) if @post.photo.attached?%>
+                        <%#  等比例壓縮，最大的長度會在 resize_to_limit 的範圍內 %>
+
+ <%= form_for(@comment, url: post_comments_path(@post), local: true) do |form| %>
  <%= form.text_field :content %>
  <%= form.submit "送出" %>
 <% end %>

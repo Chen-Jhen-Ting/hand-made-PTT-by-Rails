@@ -10,6 +10,8 @@ require("@rails/activestorage").start()
 require("channels")
 
 
+require("trix")
+require("@rails/actiontext")
 
 
 // (e.g <%= image_pack_tag 'rails.png' %>)

@@ -16,6 +16,11 @@ class PostsController < ApplicationController
       @post = @board.posts.new(post_params)
   
       if @post.save
+
+        #寄信
+        # 可以用 deliver 用 deliver_later 是為了工作排成 
+        # SendmailJob.set(wait: 10.seconds).perform_later(@post)
+        #等 10秒後開始做這件事情
         redirect_to @board, notice: '文章新增成功'
       else
         render :new
@@ -30,6 +35,7 @@ class PostsController < ApplicationController
       @post = current_user.posts.find(params[:id])
   
       if @post.update(post_params)
+        
         redirect_to @post, notice: '文章更新成功'
       else
         render :edit
@@ -40,7 +46,7 @@ class PostsController < ApplicationController
   
     def post_params
       params.require(:post)
-            .permit(:title, :content)
+            .permit(:title, :content, :photo,:hi)
             .merge(user: current_user)
     end
   

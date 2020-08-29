@@ -1,0 +1,11 @@
+<h1>謝乾爹～～～！</h1>
+
+
+<ul>
+  <li>
+    <%= link_to "Plan A(#{ENV['plan_a_price']} 元)", payment_path(plan: 'a')%>
+  </li>
+  <li>
+    <%= link_to "Plan B(#{ENV['plan_b_price']} 元)", payment_path(plan: 'b')%>
+  </li>
+</ul>

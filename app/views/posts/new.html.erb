@@ -11,6 +11,16 @@
     <%= form.label :content, "內文" %>
     <%= form.text_area :content %>
   </div>
+  
+  <div class="fields">
+    <%= form.label :hi, "內文" %>
+    <%= form.rich_text_area :hi %>
+  </div>
+
+  <div class="fields">
+    <%= form.label :photo, "附件" %>
+    <%= form.file_field :photo %>
+  </div>
 
   <%= form.submit %>
 <% end %>

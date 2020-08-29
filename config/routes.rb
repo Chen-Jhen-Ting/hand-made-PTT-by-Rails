@@ -1,12 +1,23 @@
 Rails.application.routes.draw do
   root "pages#index"
   get "/about", to: "pages#about"
+  get "/pricing", to: "pages#pricing"
+  get "/payment", to: "pages#payment"
+  post "/checkout", to: "pages#checkout"
+
+
+  namespace :api do
+    namespace :v2 do
+      resources :boards, only: [:index]
+    end
+  end
 
   resources :favorites, only: [:index]
 
   resources :boards do
     member do
       post :favorite
+      put :hide
     end
 
     resources :posts, shallow: true do
@@ -24,4 +35,10 @@ Rails.application.routes.draw do
       delete :sign_out
     end
   end
+
+
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  # 掛載 LetterOpenerWeb::Engine 到 "/letter_opener" 這個路徑
+
 end

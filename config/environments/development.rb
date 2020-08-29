@@ -59,4 +59,21 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.mailgun.org',
+    port:                 587,
+    domain:               ENV["mailgun_domain"],
+    user_name:            ENV["mailgun_user_name"],
+    password:             ENV["mailgun_password"],
+    authentication:       'plain',
+    enable_starttls_auto: true }
+  # SMTP hostname: smtp.mailgun.org
+  # Port: 587 (recommended)
+  # Username: postmaster@sandboxefcf71f4405748b8b5665fe1fc2d844f.mailgun.org
+  # Default password: 05a8c052c61c65db949f0931b6714b58-203ef6d0-1c20e410Manage SMTP credentials
 end

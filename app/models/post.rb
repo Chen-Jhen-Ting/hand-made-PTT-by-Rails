@@ -5,7 +5,8 @@ class Post < ApplicationRecord
   belongs_to :board
   belongs_to :user
   has_many :comments
-
+  has_one_attached :photo
+  has_rich_text :hi
   before_create :create_serial
 
   def display_username
