@@ -1,3 +1,0 @@
-rails_run: bin/rails s -p 3000
-
-webpack_run: bin/webpack-dev-server
